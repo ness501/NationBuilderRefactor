@@ -22,10 +22,10 @@
  * us gain insight into your critical thinking skills.
  **/
 
-// do we care if the movie is returned before the two days? NO
-// html should return some sort of html element (future cases - we want some type of dynamic logic)
-// TODO ADD TIMESTAMPS TO TRACK DAYS RENTED (TIME IN / TIME OUT)
-// TODO can update statement to be more specific with either text or html, right now it outputs both as requested
+// What if a movie is returned before the two days?
+// Should return both html and text, with future enhancements like a pdf etc
+// Could add timestamps to track days rented ( time in/out )
+// TODO create a Statement class ( notes below )
 
 // priceCodes - UPDATED VARIABLE NAMES & MOVED TO TOP OF FILE
 export const REGULAR_MOVIE_PRICECODE = 0;
@@ -47,10 +47,10 @@ export class Rental {
     this.frequentRenterPoints = this.getFrequentRenterPoints();
   }
 
-  // I initially made a comment about using if conditions instead of having switch cases
-  // but the switch cases provides more clarity and are easily readable
-  // moved logic from Customer to Rental so that each movies fees can be calculated
-  // for each rental and additional cases can be added/updated if needed
+  // Initially, I suggested using if-else conditions instead of switch cases,
+  // but switch cases offer better clarity and are more readable.
+  // Refactored the logic from Customer to Rental to ensure that each movie's fee is calculated
+  // per rental, allowing for easy addition or modification of cases in the future.
   getRentalFee() {
     let feeAmount = 0;
     switch (this.movie.priceCode) {
@@ -73,8 +73,8 @@ export class Rental {
     return feeAmount;
   }
 
-  // created a frequent renter points calculation to help determine points per movie with type in mind.
-  // in the future, extra edge cases can easily be added if needed
+  // Implemented a frequent renter points calculation to determine points based on the movie type.
+  // This approach allows for easy extension in the future to accommodate additional edge cases if needed.
   getFrequentRenterPoints() {
     let frequentRenterPoints = 1;
 
@@ -99,12 +99,15 @@ export class Customer {
     this.rentals.push(rental);
   }
 
-  statement(desiredFormat = "html") {
+  // Another option is to pass an argument like desiredFormat = "text" into the statement() method,
+  // then use conditionals to implement the desired output format for the result.
+  statement() {
     let totalAmount = 0;
     let frequentRenterPoints = 0;
-    // currently, we are outputting both text and html
-    // in the future, a new Statement class this can be created
-    // to generateHTMLStatement() or generatePDFStatement() etc
+
+    // Currently, we are outputting both text and HTML.
+    // In the future, a new Statement class could be created to handle
+    // methods like generateHTMLStatement() or generatePDFStatement(), enabling more flexible output formats.
     let textResult = "Rental record for " + this.name + "\n";
     let htmlResult = `<h1>Rental Record for <strong>${this.name}</strong></h1>\n<ul>\n`;
 
